@@ -1,0 +1,698 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "FitSphere API",
+        "description": "API Documentation for FitSphere",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/api",
+            "description": "Main API Server"
+        }
+    ],
+    "paths": {
+        "/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register a new user",
+                "operationId": "0903f2e0df1a8857bee538fc055417f0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "role",
+                                    "phone"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "john@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "secret123"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "secret123"
+                                    },
+                                    "role": {
+                                        "type": "string",
+                                        "example": "member",
+                                        "enum": [
+                                            "member",
+                                            "trainer",
+                                            "gym"
+                                        ]
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "+1 (555) 000-0000"
+                                    },
+                                    "dob": {
+                                        "description": "Required for member and trainer",
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1990-01-01"
+                                    },
+                                    "fitness_goal": {
+                                        "description": "Required for member",
+                                        "type": "string",
+                                        "example": "Lose weight"
+                                    },
+                                    "weight": {
+                                        "description": "Required for member",
+                                        "type": "number",
+                                        "example": 70
+                                    },
+                                    "height": {
+                                        "description": "Required for member",
+                                        "type": "number",
+                                        "example": 175
+                                    },
+                                    "experience_years": {
+                                        "description": "Required for trainer",
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "specialization": {
+                                        "description": "Required for trainer",
+                                        "type": "string",
+                                        "example": "Yoga"
+                                    },
+                                    "price_per_month": {
+                                        "description": "Required for trainer",
+                                        "type": "number",
+                                        "example": 50
+                                    },
+                                    "bio": {
+                                        "description": "Required for trainer",
+                                        "type": "string",
+                                        "example": "Experienced trainer..."
+                                    },
+                                    "manager_name": {
+                                        "description": "Required for gym",
+                                        "type": "string",
+                                        "example": "Manager Name"
+                                    },
+                                    "manager_email": {
+                                        "description": "Required for gym",
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "manager@gym.com"
+                                    },
+                                    "city": {
+                                        "description": "Required for gym",
+                                        "type": "string",
+                                        "example": "Cairo"
+                                    },
+                                    "street_name": {
+                                        "description": "Required for gym",
+                                        "type": "string",
+                                        "example": "Tahrir Street"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User registered successfully"
+                    },
+                    "422": {
+                        "description": "Validation Error"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login user",
+                "operationId": "2dd578ff7aba2721293dac66833b27d1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "john@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "secret123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login successful"
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    },
+                    "422": {
+                        "description": "Validation Error"
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout user",
+                "operationId": "68a6108af04af5e3bc1ea68a6c6f1299",
+                "responses": {
+                    "200": {
+                        "description": "Logged out successfully"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/muscles": {
+            "get": {
+                "tags": [
+                    "Content - Videos"
+                ],
+                "summary": "Get all muscles",
+                "operationId": "2ba146ea38f965cfb33c20bfd1248238",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/video-categories": {
+            "get": {
+                "tags": [
+                    "Content - Videos"
+                ],
+                "summary": "Get all video categories",
+                "operationId": "29a7f4352a71ee6839d3f5893329883c",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/videos": {
+            "get": {
+                "tags": [
+                    "Content - Videos"
+                ],
+                "summary": "List videos with advanced filtering",
+                "operationId": "319b58b9d1ed853fc9d8f9bc1afd2f4f",
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "description": "Filter by category name (e.g. Workout, Recovery)",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "muscle",
+                        "in": "query",
+                        "description": "Filter by muscle name (e.g. Full Body, Chest)",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Filter by video title",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/videos/{id}": {
+            "get": {
+                "tags": [
+                    "Content - Videos"
+                ],
+                "summary": "Get single video and related videos",
+                "operationId": "10008a4246276b57ee92bc37df44b951",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Video ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Video not found"
+                    }
+                }
+            }
+        },
+        "/gyms": {
+            "get": {
+                "tags": [
+                    "Gyms"
+                ],
+                "summary": "List all gyms",
+                "operationId": "5917b5dba336b46002602c9a494922af",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Filter by gym name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/gyms/{id}": {
+            "get": {
+                "tags": [
+                    "Gyms"
+                ],
+                "summary": "Get gym details",
+                "operationId": "cd1f00d34bee7532692328029901894d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Gym ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Gym not found"
+                    }
+                }
+            }
+        },
+        "/orders": {
+            "get": {
+                "tags": [
+                    "Store - Orders"
+                ],
+                "summary": "List user's orders",
+                "operationId": "325fd3d55bbe9bb39645269928fa4983",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Store - Orders"
+                ],
+                "summary": "Checkout current cart and create order",
+                "operationId": "445bab4f7dc9ea6fcd54f286c0209478",
+                "responses": {
+                    "201": {
+                        "description": "Order created successfully"
+                    }
+                }
+            }
+        },
+        "/orders/{id}": {
+            "get": {
+                "tags": [
+                    "Store - Orders"
+                ],
+                "summary": "Get order details",
+                "operationId": "f088d34a2737782215f435f854e31de5",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/products": {
+            "get": {
+                "tags": [
+                    "Store - Products"
+                ],
+                "summary": "List all products with filtering and sorting",
+                "operationId": "c1ff6f862214e1896c59cfe0491ce0e8",
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "description": "Filter by category name (e.g. Supplements, Gear)",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "min_price",
+                        "in": "query",
+                        "description": "Minimum price",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "max_price",
+                        "in": "query",
+                        "description": "Maximum price",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "sort_by",
+                        "in": "query",
+                        "description": "Sort option (price_asc, price_desc)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "price_asc",
+                                "price_desc"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/products/{id}": {
+            "get": {
+                "tags": [
+                    "Store - Products"
+                ],
+                "summary": "Get product details",
+                "operationId": "b46f4aa73232d0368eee698a082342a4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Product ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Product not found"
+                    }
+                }
+            }
+        },
+        "/trainers": {
+            "get": {
+                "tags": [
+                    "Trainers"
+                ],
+                "summary": "List all trainers with advanced filtering and sorting",
+                "operationId": "ee552e84cfffce7d4ca2567030d8a29a",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Filter by trainer name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "speciality",
+                        "in": "query",
+                        "description": "Filter by specialization",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "min_price",
+                        "in": "query",
+                        "description": "Minimum price per month",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "max_price",
+                        "in": "query",
+                        "description": "Maximum price per month",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "min_rating",
+                        "in": "query",
+                        "description": "Minimum average rating (e.g. 4.0)",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "sort_by",
+                        "in": "query",
+                        "description": "Sort by option (top_rated, price_asc, price_desc)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "top_rated",
+                                "price_asc",
+                                "price_desc"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/trainers/{id}": {
+            "get": {
+                "tags": [
+                    "Trainers"
+                ],
+                "summary": "Get trainer profile details",
+                "operationId": "22ea11cdf2e876885bef0353061e7b3e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Trainer ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Trainer not found"
+                    }
+                }
+            }
+        },
+        "/profile": {
+            "get": {
+                "tags": [
+                    "Auth - User"
+                ],
+                "summary": "Get logged-in user profile",
+                "operationId": "c08846d5dd388c9e0492eb50a8cf291f",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Auth - User"
+                ],
+                "summary": "Update logged-in user profile",
+                "operationId": "423b0a7d6bc9e3f8dd9fe56b2909cc27",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Ziad Waleed"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "ziad.waleed@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "newpassword123"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "+201234567890"
+                                    },
+                                    "birth_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1999-05-15"
+                                    },
+                                    "height": {
+                                        "type": "number",
+                                        "example": 182
+                                    },
+                                    "weight": {
+                                        "type": "number",
+                                        "example": 78
+                                    },
+                                    "fitness_goal": {
+                                        "type": "string",
+                                        "example": "Hypertrophy"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Profile updated successfully"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "sanctum": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Content - Videos",
+            "description": "Content - Videos"
+        },
+        {
+            "name": "Gyms",
+            "description": "Gyms"
+        },
+        {
+            "name": "Store - Orders",
+            "description": "Store - Orders"
+        },
+        {
+            "name": "Store - Products",
+            "description": "Store - Products"
+        },
+        {
+            "name": "Trainers",
+            "description": "Trainers"
+        },
+        {
+            "name": "Auth - User",
+            "description": "Auth - User"
+        }
+    ]
+}
